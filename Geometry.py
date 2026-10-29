@@ -12,9 +12,6 @@ class Geometry(pygame.sprite.Sprite):
         self.pos = pos
         self.scale = scale
 
-
-
-
 #Child class for invisible walls specifically
 class InvisibleWall(Geometry):
     pass
