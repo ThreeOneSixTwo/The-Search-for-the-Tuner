@@ -49,17 +49,20 @@ class MovingScene():
     def getPlayerAbsCoords(self):
         return self.player.rect.center[0] - self.focusX, self.player.rect.center[1] - self.focusY
 
+    #This one teleports the player to coordinates on the screen, and moves the scene to any location
+    #Surely I'll test is someday
     def teleportPlayer(self, focusX, focusY, absX, absY):
         self.focusX = focusX
         self.focusY = focusY
         self.player.rect.center.x = absX
         self.player.rect.center.y = absY
 
+    #This one teleports the player to coordinates on the scene
     def teleportPlayer(self, absX, absY):
         self.player.rect.x = self.screenMaxX/2
         self.player.rect.y = self.screenMaxY/2
-        self.focusX = absX + self.screenMaxX/2 - self.player.rect.
-        self.focusY = absY + self.screenMaxY/2 #- self.player.rect.center[1]
+        self.focusX = absX + self.screenMaxX/2 - (self.player.rect.left - self.player.rect.right)/2
+        self.focusY = absY + self.screenMaxY/2 - (self.player.rect.top - self.player.rect.bottom)/2
 
 
 #I know it's weird, but having the scene handling movement should work well

@@ -27,7 +27,7 @@ def runGame():
                 pygame.quit()
                 exit()
         textSurface = font.render(str(currentScene.focusX) + ' ' + str(currentScene.focusY), False, white)
-        screen.fill(black)
+        screen.fill(white)
         currentScene.draw(screen)
         currentScene.movePlayer(pygame.key.get_pressed(), 20)
 
