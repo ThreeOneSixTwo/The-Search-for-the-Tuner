@@ -56,8 +56,10 @@ class MovingScene():
 
         #Left Movement
         if(inputs[pygame.K_LEFT] == True  ):
+            #If the left side of the player is not in contact with the edge of screen
             if(self.player.rect.left > self.minX):
                 self.player.rect.x -= speed
+            #If the top left corner of the background image is
             elif(self.focusX < self.minX):
                 self.focusX += speed
 
@@ -67,7 +69,7 @@ class MovingScene():
         if (inputs[pygame.K_RIGHT] == True ):
             if(self.player.rect.right < self.screenMaxX):
                 self.player.rect.x += speed
-            elif(self.focusX - self.screenMaxX < self.maxX ):
+            elif(-self.focusX + self.screenMaxX < self.maxX ):
                 self.focusX -= speed
 
         self.player.updateSpriteOnMovement()
@@ -85,7 +87,9 @@ class MovingScene():
         if(inputs[pygame.K_DOWN] == True ):
             if(self.player.rect.bottom < self.screenMaxY):
                 self.player.rect.y += speed
-            elif (self.focusY - self.screenMaxY < self.maxY ):
+
+
+            elif (-self.focusY + self.screenMaxY < self.maxY ):
                 self.focusY -= speed
 
         self.player.updateSpriteOnMovement()

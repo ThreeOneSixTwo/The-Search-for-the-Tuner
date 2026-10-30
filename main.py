@@ -27,8 +27,7 @@ def runGame():
                 pygame.quit()
                 exit()
         textSurface = font.render(str(currentScene.focusX) + ' ' + str(currentScene.focusY), False, white)
-
-
+        screen.fill(black)
         currentScene.draw(screen)
         currentScene.movePlayer(pygame.key.get_pressed(), 20)
 
@@ -101,8 +100,9 @@ textSurface = font.render("Calculus", True, (0, 0, 0))
 
 pygame.display.set_caption("The Search for the Tuner")
 pygame.display.set_icon(pygame.image.load("Assets/Tuner.png"))
+
 #Fair use!!!!!!!!!!!!!11
-currentScene = movingScene.MovingScene(0,0, "Assets/Screenshot_2025-12-24_13-10-57.png", 5000, 5000, RIGHT_EDGE, BOTTM_EDGE)
+currentScene = movingScene.MovingScene(0,0, "Assets/Screenshot_2025-12-24_13-10-57.png", 2880, 3332, RIGHT_EDGE, BOTTM_EDGE)
 currentScene.setPlayer(Player.makeTunerPlayer())
 runGame()
 
