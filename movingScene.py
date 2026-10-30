@@ -41,11 +41,25 @@ class MovingScene():
     def removeEntity(self, entity):
         self.entities.remove(entity)
     def moveAllSprites(self):
-        for geometry in self.geometry:
+        for wall in self.geometry:
             pass
         for entity in self.entities:
             pass
 
+    def getPlayerAbsCoords(self):
+        return self.player.rect.center[0] - self.focusX, self.player.rect.center[1] - self.focusY
+
+    def teleportPlayer(self, focusX, focusY, absX, absY):
+        self.focusX = focusX
+        self.focusY = focusY
+        self.player.rect.center.x = absX
+        self.player.rect.center.y = absY
+
+    def teleportPlayer(self, absX, absY):
+        self.player.rect.x = self.screenMaxX/2
+        self.player.rect.y = self.screenMaxY/2
+        self.focusX = absX + self.screenMaxX/2 - self.player.rect.
+        self.focusY = absY + self.screenMaxY/2 #- self.player.rect.center[1]
 
 
 #I know it's weird, but having the scene handling movement should work well
@@ -59,7 +73,7 @@ class MovingScene():
             #If the left side of the player is not in contact with the edge of screen
             if(self.player.rect.left > self.minX):
                 self.player.rect.x -= speed
-            #If the top left corner of the background image is
+            #If the top left side of the background image is not too far
             elif(self.focusX < self.minX):
                 self.focusX += speed
 
@@ -67,8 +81,12 @@ class MovingScene():
 
         #Right Movement
         if (inputs[pygame.K_RIGHT] == True ):
+            #If the right side of the player is not in contact with the edge of screen
+
             if(self.player.rect.right < self.screenMaxX):
                 self.player.rect.x += speed
+            # If the right side of the background image is not too far
+
             elif(-self.focusX + self.screenMaxX < self.maxX ):
                 self.focusX -= speed
 
