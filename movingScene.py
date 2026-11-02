@@ -1,9 +1,13 @@
 import pygame
 
+#from camera import camera
+
+
 #A class that contains an entire world, and handles movement of all objects therein
 class MovingScene():
 
-    def __init__(self, focusX, focusY, backgroundSource, maxX, maxY, screenMaxX, screenMaxY):
+    def __init__(self, focusX, focusY, backgroundSource, maxX, maxY, screenMaxX, screenMaxY, cam):
+        #self.camera = Camera.__init__()
         self.focusX = focusX
         self.focusY = focusY
         self.maxX = maxX
@@ -12,6 +16,7 @@ class MovingScene():
         self.minY = 0
         self.screenMaxX = screenMaxX
         self.screenMaxY = screenMaxY
+        self.camera = cam
         self.backgroundSource = backgroundSource
         self.background = pygame.image.load(self.backgroundSource)
         self.background = pygame.transform.scale(self.background, (self.maxX, self.maxY))
@@ -49,6 +54,22 @@ class MovingScene():
     def getPlayerAbsCoords(self):
         return self.player.rect.center[0] - self.focusX, self.player.rect.center[1] - self.focusY
 
+    def moveCamera(self, direction):
+        self.camera += direction
+
+    def teleportCamera(self, absCoords):
+        self.camera = absCoords
+
+    def updateScreenLocations(self):
+        for entity in self.entities:
+            pass
+        for geometry in self.geometry:
+            pass
+        self.player.x = self.player.absCoords[0] + self.camera[0]
+        self.player.y = self.player.absCoords[1] + self.camera[1]
+        self.focusX = -self.camera[0]
+        self.focusY = self.camera[1]
+
     #This one teleports the player to coordinates on the screen, and moves the scene to any location
     #Surely I'll test is someday
     def teleportPlayer(self, focusX, focusY, absX, absY):
@@ -65,6 +86,8 @@ class MovingScene():
         self.focusY = absY + self.screenMaxY/2 - (self.player.rect.top - self.player.rect.bottom)/2
 
 
+
+
 #I know it's weird, but having the scene handling movement should work well
     # since player movement is very deeply connected to background movement, it makes sense for it to handle it
 
@@ -78,9 +101,10 @@ class MovingScene():
                 self.player.rect.x -= speed
             #If the top left side of the background image is not too far
             elif(self.focusX < self.minX):
-                self.focusX += speed
+                self.moveCamera((-speed, 0))
+                #self.focusX += speed
 
-        self.player.updateSpriteOnMovement()
+        #self.player.updateSpriteOnMovement()
 
         #Right Movement
         if (inputs[pygame.K_RIGHT] == True ):
@@ -91,18 +115,22 @@ class MovingScene():
             # If the right side of the background image is not too far
 
             elif(-self.focusX + self.screenMaxX < self.maxX ):
-                self.focusX -= speed
+                self.moveCamera((speed, 0))
 
-        self.player.updateSpriteOnMovement()
+                #self.focusX -= speed
+
+        #self.player.updateSpriteOnMovement()
 
         #Upward Movement
         if(inputs[pygame.K_UP] == True ):
             if(self.player.rect.top > self.minY):
                 self.player.rect.y -= speed
             elif(self.focusY < self.minY):
-                self.focusY += speed
+                self.moveCamera((0, speed))
 
-        self.player.updateSpriteOnMovement()
+                #self.focusY += speed
+
+        #self.player.updateSpriteOnMovement()
 
         #Downward Movement
         if(inputs[pygame.K_DOWN] == True ):
@@ -111,7 +139,10 @@ class MovingScene():
 
 
             elif (-self.focusY + self.screenMaxY < self.maxY ):
-                self.focusY -= speed
+                self.moveCamera((0, -speed))
+                #self.focusY -= speed
 
-        self.player.updateSpriteOnMovement()
-        self.moveAllSprites()
+        #self.player.updateSpriteOnMovement()
+        self.updateScreenLocations()
+
+

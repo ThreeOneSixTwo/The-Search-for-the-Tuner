@@ -105,7 +105,7 @@ pygame.display.set_caption("The Search for the Tuner")
 pygame.display.set_icon(pygame.image.load("Assets/Tuner.png"))
 
 #Fair use!!!!!!!!!!!!!11
-currentScene = movingScene.MovingScene(0,0, "Assets/Screenshot_2025-12-24_13-10-57.png", 5000, 5000, RIGHT_EDGE, BOTTM_EDGE)
+currentScene = movingScene.MovingScene(0,0, "Assets/Screenshot_2025-12-24_13-10-57.png", 5000, 5000, RIGHT_EDGE, BOTTM_EDGE, (RIGHT_EDGE/2, BOTTM_EDGE/2))
 currentScene.setPlayer(Player.makeTunerPlayer())
 runGame()
 

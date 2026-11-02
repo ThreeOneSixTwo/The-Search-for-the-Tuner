@@ -17,10 +17,12 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(asset)
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        #self.rect.center = (x, y)
+        self.absCoords = (x, y)
         self.state = playerStates.STANDING
         self.frameCount = 0
         self.frameRollover = 60
+
     def makeTunerPlayer(self):
         T1 = Player(800,600, "Assets/Tuner.png")
         return T1
