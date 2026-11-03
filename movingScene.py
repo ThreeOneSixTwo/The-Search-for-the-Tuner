@@ -4,6 +4,7 @@ import pygame
 
 
 #A class that contains an entire world, and handles movement of all objects therein
+#If
 class MovingScene():
 
     def __init__(self, focusX, focusY, backgroundSource, maxX, maxY, screenMaxX, screenMaxY, cam):
@@ -55,7 +56,7 @@ class MovingScene():
         return self.player.rect.center[0] - self.focusX, self.player.rect.center[1] - self.focusY
 
     def moveCamera(self, direction):
-        self.camera += direction
+        self.camera = self.camera[0] + direction[0], self.camera[1] - direction[1]
 
     def teleportCamera(self, absCoords):
         self.camera = absCoords
@@ -67,8 +68,9 @@ class MovingScene():
             pass
         self.player.x = self.player.absCoords[0] + self.camera[0]
         self.player.y = self.player.absCoords[1] + self.camera[1]
+        print(self.camera)
         self.focusX = -self.camera[0]
-        self.focusY = self.camera[1]
+        self.focusY = -self.camera[1]
 
     #This one teleports the player to coordinates on the screen, and moves the scene to any location
     #Surely I'll test is someday
